@@ -1,5 +1,8 @@
 src/linear/slprj/*
 *.m~
 
+# tar files
+*.tar
+
 # virtual env
 venv/
