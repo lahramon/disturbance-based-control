@@ -1,2 +1,5 @@
 src/linear/slprj/*
 *.m~
+
+# virtual env
+venv/

@@ -1,0 +1,3 @@
+[submodule "ext/pygrib"]
+	path = ext/pygrib
+	url = https://github.com/jswhit/pygrib
