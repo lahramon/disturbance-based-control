@@ -6,3 +6,6 @@ src/linear/slprj/*
 
 # virtual env
 venv/
+
+# no jupyter notebooks
+*.ipynb
