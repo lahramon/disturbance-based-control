@@ -8,4 +8,4 @@ src/linear/slprj/*
 venv/
 
 # no jupyter notebooks
-*.ipynb
+#*.ipynb
