@@ -1,15 +1,32 @@
 import math
 import numpy as np
 
-class MDimCuboidStateSpace:
+class MDPStateSpace:
+
+    def __init__(self, box_count:int, reward_function:function = (lambda x: 0)):
+        self.box_count = box_count
+        self.reward_function = reward_function
+
+
+    def is_a_box(pot_box_number:int):
+        return True
+
+    def moving_reward(self, box_number_1:int, box_number_2:int) -> float:
+        # return the reward of moving from one box to the other
+        return reward_function(box_number_1, box_number_2)
+
+
+
+class MDimCuboidStateSpace(MDPStateSpace):
     # Class for a multidimensional cuboidal State space, which can be partitioned in cuboidal boxes
 
-    def __init__(self, lower_bounds: list[float], upper_bounds:list[float], MD_box_count:list[int]):
+    def __init__(self, lower_bounds: list[float], upper_bounds:list[float], MD_box_count:list[int], reward_function:function = (lambda x: 0)) -> None:
         if ((len(lower_bounds) != len(upper_bounds)) | (len(upper_bounds) != MD_box_count)):
             raise RuntimeError("Input arrays are of different lengths")
         elif(not all([[lower_bound < upper_bound for lower_bound in lower_bounds] for upper_bound in upper_bounds])):
             raise RuntimeError("Array Bounds are defective")
-        else: 
+        else:
+            super(math.multiply(MD_box_count), reward_function).__init__()
             self.dim = len(MD_box_count)
             self.lower_bounds = lower_bounds
             self.upper_bounds = upper_bounds
@@ -23,6 +40,7 @@ class MDimCuboidStateSpace:
     @property
     def dim(self):
         return self.dim
+
 
     @property
     def box_size(self):
