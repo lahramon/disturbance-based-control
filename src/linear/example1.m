@@ -7,9 +7,9 @@
 % D = [0; 0];
 % 
 
-% purely imaginary eigenvalues (no damping)
+% % purely imaginary eigenvalues (no damping)
 A = [0 1; -1 0];
-B = [0; 0];
+B = [0; 1];
 A1 = [0 0; 0 0];
 B1 = [0; 0];
 C = [1 0; 0 1];
