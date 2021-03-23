@@ -1,9 +1,9 @@
 import math
 import numpy as np
 
-class MDPStateSpace:
+class MDP_StateSpace:
 
-    def __init__(self, box_count:int, reward_function:function = (lambda x: 0)):
+    def __init__(self, box_count:int, reward_function:function = (lambda x: 0)) -> None:
         self.box_count = box_count
         self.reward_function = reward_function
 
@@ -17,7 +17,7 @@ class MDPStateSpace:
 
 
 
-class MDimCuboidStateSpace(MDPStateSpace):
+class MDimCuboidStateSpace(MDP_StateSpace):
     # Class for a multidimensional cuboidal State space, which can be partitioned in cuboidal boxes
 
     def __init__(self, lower_bounds: list[float], upper_bounds:list[float], MD_box_count:list[int], reward_function:function = (lambda x: 0)) -> None:
