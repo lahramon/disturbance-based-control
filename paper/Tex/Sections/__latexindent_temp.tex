@@ -1,0 +1,688 @@
+% !TEX root = ../Master.tex
+\documentclass[../Master.tex]{subfiles}
+
+\begin{document}
+
+\section{Preliminaries}
+
+\subsection{Notation}
+
+\(\cl{B} \)
+
+We will denote by \((E,\cl{B})\) a measurable space. Let \(\bar{\cl{B}}\) be the completion of the \(\sigma \)-Algebra \(\cl{B} \) with respect to the system of every finite measure, i.e.,
+\begin{equation*}\bar{\cl{B}} = \bigcap_{\mu \in \ca^+(E,\cl{B})} \bar{\cl{B}}_\mu,
+\end{equation*}
+where \(\ca^+(E,\cl{B})\) denotes the set of finite non-negative measures on \(\cl{B} \) and \(\bar{\cl{B}}_\mu \) the completion of \(\cl{B} \) with respect to \(\mu \in \ca^+(E,\cl{B}) \). As every finite measure \(\mu \) can be uniquely extended to \(\bar{\cl{B}} \), we may assume, whenever it is convenient, that \(\cl{B} = \bar{\cl{B}} \).
+
+\todo[inline]{Define pushforward measure and inner regular measures (mabye state the generalized kolmogorov) and borel simga algebra}
+
+%--------------
+
+\subsection{Important Function spaces}
+
+When working with Markovian and Feller semigroups we will repeatedly encounter certain Banach spaces. We dedicate this subsection to a superficial investgation of these spaces. We make some simple observations on the duality of these spaces and also quote the Riesz representation theorem for \(C_0(E)\) for compact and locally compact Hausdorff \(E\).
+
+\paragraph{The space \(B_b(E,\cl{B})\).}
+Let \((E,\cl{B})\) be a measurable space. By \(B_b (E,\cl{B})\) we denote the set of all bounded \(\cl{B} \)-measurabe functions \(f : E \to \R \). Together with the pointwise defined addition and scalar multiplication this set becomes an \(\R \)-vector spaces. Endowing \((E,\cl{B})\) with the supremum norm it becomes a Banach space. 
+
+\paragraph{The space \(C_0(E)\).}
+Let \(E\) be a locally compact topological space with Borel-\(\sigma{}\)-algebra \(\cl{B}\), so \((E,\cl{B})\) is a measurable Borel-space. We denote by \(C_0(E)\) the set of all continous functions \(f: E \to \R \), which vanish at infinity, i.e., for every \(\epsilon > 0\) there exists a compact set \(K \subset E\) such that \(\lvert f(x) \rvert < \epsilon \) for all \(x \in E \backslash K\). 
+
+
+\paragraph{The spaces \(\ca(\cl{B})\) and \(\rca(\cl{B})\).}
+Let \((E,\cl{B})\) be a measurable space. By \(\ca (\cl{B})\) we denote the set of all finite signed measures on \(\cl{B} \), i.e., every mapping \(\mu : \cl{B} \to \R \) that satisfy
+\begin{equation*}
+  \mu \left( \bigcup_{n \in \N} A_n \right)  = \sum_{n \in \N} \mu \left(A_n \right),
+\end{equation*}
+for every sequence \(A_1, \, A_2, \dots \) of disjoint sets in \(\cl{B}\).
+Together with the pointwise defined addition and scalar multiplication this set becomes an \(\R \)-vector spaces.
+
+For \(\ca(\cl{B})\) we can define a norm using total variations of the finite measures in the following way: For each \(\mu \in \ca (\cl{B}) \) there exists a Hahn-Decomposition of \(E\) into two disjoint sets \(\Gamma_\mu^+, \Gamma_\mu^- \in \cl{B} \) such that \(E = \Gamma_\mu^+ \cup \Gamma_\mu^-\) and for all \(\cl{B}\)-measurable sets \(\Gamma \subset \Gamma_\mu^+ \), resp. \(\Gamma \subset \Gamma_\mu^-\) we have \(\mu (\Gamma) \ge 0\), resp. \(\mu (\Gamma) \le 0\); see \cite[Theorem 32.1]{billingsley_probability_1995}. Then the mappings defined by
+\begin{equation}
+  \begin{aligned}
+    \mu^+ (\Gamma) :=& \mu (\Gamma \cap \Gamma_\mu^+), \\
+    \mu^- (\Gamma) :=& - \mu (\Gamma \cap \Gamma_\mu^-),
+  \end{aligned}
+\end{equation}
+for \(\Gamma \in \cl{B}\), are finite non-negative measures. The total variation of \(\mu \) is then defined as
+\begin{equation*}
+  \lvert \mu \rvert (\Gamma) := \mu^+ (\Gamma) + \mu^- (\Gamma), \quad \Gamma \in \cl{B}.
+\end{equation*}
+It is easily checked that \(\lvert \mu \rvert{}\) defines a non-negative finite measure and \(\left\lVert \mu \right\rVert := \lvert \mu \rvert(E)\) defines a norm  on \(\ca (\cl{B})\) such that \((\ca (\cl{B}),\left\lVert \mu \right\rVert) \) is a Banach space.
+
+The space \(\rca(\cl{B})\) is the subspace of \(\ca(\cl{B})\) of all \emph{regular}\index{regular!countably additive function} countably additive functions \(\mu{}\), i.e., it additionally holds that for all \(\Gamma \in \cl{B}\) we have \(\mu(\Gamma) = \sup{}\{\mu(K) \mid K \subset \Gamma, \, K \text{ compact}\}{}\) and \(\mu(\Gamma) = \inf{}\{\mu(O) \mid \Gamma \subset O, \, O \text{ open}\}{}\).
+Note that, by taking complements, it is easily seen that the first condition actually implies the second.
+
+\paragraph{The Duality between \(B_b(E,\cl{B})\) and \(\ca(\cl{B})\).}
+Let \((E, \cl{B})\) be a measurable space and let \(B_b(E,\cl{B})\) and \(\ca(\cl{B})\) be as in the previous paragraphs.
+
+We define a bilinear form 
+\begin{equation}\label{eq:bilinear_mapping}
+  \begin{aligned}
+    \langle \cdot, \cdot \rangle: B_b(E,\cl{B}) \times \ca(\cl{B}) \to \R&, \\
+    \langle f, \mu \rangle = \int_E f(x) \, \mu(dx)&.
+  \end{aligned}
+\end{equation}
+This mapping satisfies
+\begin{equation}\label{eq:bilinear_boundedness}
+  \left\lvert \langle f, \mu \rangle \right\rvert \le \int_E \lvert f \rvert \, d\lvert\mu\rvert \le \sup_{x \in E} \lvert f(x) \rvert \lvert\mu\rvert(E) = {\lVert f \rVert}_{B_b} {\lVert \mu \rVert}_{\ca}.
+\end{equation}
+Thus, the bilinear product is bounded, and therefore, continuous. In fact, we even have for every \(f \in B_b(E, \cl{B})\) that
+\begin{equation}\label{eq:first_bilinear_coercivity}
+  \left\lVert \langle f, \cdot \rangle \right\rVert = \sup_{\mu \in \ca} \frac{\left\lvert \langle f, \mu \rangle \right\rvert}{\lVert \mu \rVert} \ge \sup_{x \in E} \frac{\left\lvert \langle f, \delta_x \rangle \right\rvert}{\lVert \delta_x \rVert} = \sup_{x \in E} \lvert f(x) \rvert = \lVert f \rVert,
+\end{equation}
+which yields together with equation~\eqref{eq:bilinear_boundedness} that \(\left\lVert \langle f, \cdot \rangle \right\rVert = \lVert f \rVert{}\).
+Thus, the space \(B_b(E,\cl{B})\) can be viewed as a subspace of the dual space \({\ca(\cl{B})}^{*}\) of \(\ca(\cl{B})\), via the linear isometric embedding \(B_b(E,\cl{B}) \to {\ca(\cl{B})}^{*}\), \(f \mapsto \langle f, \cdot \rangle{}\).
+
+Similarly to equation~\eqref{eq:first_bilinear_coercivity}, letting \(A_\mu^+\) and \(A_\mu^-\) be a Hahn-Decomposition of \(E\) with respect to \(\mu{}\) and setting \(f_\mu := 1_{A_\mu^+} - 1_{A_\mu^-}\), we obtain for all \(\mu \in \ca(\cl{B})\) that
+\begin{equation}\label{eq:second_bilinear_coercivity}
+  \left\lVert \langle \cdot, \mu \rangle \right\rVert = \sup_{f \in B_b} \frac{\left\lvert \langle f, \mu \rangle \right\rvert}{\lVert f \rVert} \ge \frac{\left\lvert \langle f_\mu, \mu \rangle \right\rvert}{\lVert f_\mu \rVert} = \lvert \mu \rvert (E) = \lVert \mu \rVert.
+\end{equation}
+Thus, the space \(\ca(E,\cl{B})\) can be viewed as a subspace of the dual space \({B_b(E,\cl{B})}^{*}\) of \(B_b(E,\cl{B})\), via the linear isometric embedding \(\ca(E,\cl{B}) \to {B_b(E,\cl{B})}^{*}\), \(\mu \mapsto \langle \cdot, \mu \rangle{}\).
+
+Note that the sets of functionals \(\langle B_b(E,\cl{B}), \cdot \rangle{}\) and \(\langle \cdot, \ca(\cl{B}) \rangle{}\) are point-separating in \(\ca(\cl{B})\) and \(B_b(E,\cl{B})\), respectively. Thus, one says that the spaces  \(B_b(E,\cl{B})\) and \(\ca(\cl{B})\) are in \emph{duality}\index{duality}, cf. Pedersen~\cite[Definition 2.3.8]{pedersen_analysis_1989}.
+
+\paragraph{The Duality between \(C_0(E)\) and \(\rca(\cl{B})\) for locally compact Hausdorff \(E\).}
+Let \(E\) be a locally compact Hausdorff space with Borel-\(\sigma{}\)-algebra \(\cl{B}\). Let \(C_0(E)\) and \(\ca(\cl{B})\) be as in the previous paragraphs.
+
+Analogously as in equation~\eqref{eq:bilinear_mapping} we define a bilinear mapping on \(C_0(E) \times \rca(\cl{B})\), which can be showed to be bounded as in equation~\eqref{eq:bilinear_boundedness}. Note that equation~\eqref{eq:first_bilinear_coercivity} also holds for all \(f \in C_0(E)\), as the dirac measures are regular. Therefore, the space \(C_0(E)\) can be viewed as a subspace of the dual space \({\rca(\cl{B})}^{*}\) of \(\rca(\cl{B})\), via the linear isometric embedding \(C_0(E) \to {\rca(\cl{B})}^{*}\), \(f \mapsto \langle f, \cdot \rangle{}\).
+
+For the spaces \(\rca(\cl{B})\) and \({C_0(E)}^*\) we can provide a much stronger result, which states that these spaces can be isometrically identity with each other. This result is known as Riesz representation theorem.
+
+\begin{theorem}[Riesz representation theorem]\label{thm:Riesz_representation}
+  Let \(E\) be a locally compact Hausdorff space. Then the map
+  \begin{equation}
+    \begin{aligned}
+      \Phi: \rca(\cl{B}) \to {C_0(E)}^*,& \\
+      \Phi(\mu)(f) \mapsto \int_E f \, d\mu,& \quad f \in C_0(E)
+    \end{aligned}
+  \end{equation}
+  is an order-preserving isometric isomorphism.
+\end{theorem}
+
+The property of \emph{order-preservation}\index{order-preservation} means that every positive measure is mapped to a positive linear functional.
+
+The proof of this result is far from trivial and would fill a whole seminar on its own. A detailed treatment of this and similar results can be found in Elstrodt~\cite[Chapter VIII, Theorem 2.26]{elstrodt_mas-_2005}.
+
+As a Corollary of Riesz representation theorem we can state a result for the special case in which \(E\) is compact.
+
+\begin{corollary}[Riesz representation theorem for compact spaces]\label{cor:Riesz_representation_compact}
+  TODO.
+\end{corollary}
+
+\begin{proof}
+  TODO.
+\end{proof}
+
+
+\section{Markov Processes and Transistion Functions}
+
+\todo[inline]{Mabye define Standard spaces and write Preliminaries of this chapter}
+
+\subsection{Transition functions}
+
+\begin{definition}[Sub-Markov kernel and transition function]\label{def:transion_functions}
+  Let \((E,\cl{B})\) be a measurable space and denote \(I := \{(s,t) \in \R_+ \times \R_+ \mid s \le t \} \).
+  \begin{enumerate}[label = (\roman*)]
+    \item A map \(p: E \times \cl{B} \to [0,1]\) is called \textit{(sub-) Markov kernel on \((E,\cl{B})\)}\index{Markov kernel} if
+    \begin{enumerate}[label = (\alph*)]
+      \item for each \(x \in E \) the map \(p(x, \cdot) \) is a (sub-) probability measure on the \(\sigma \)-algebra \(\cl{B} \);
+      \item for each \(\Gamma \in \cl{B} \) the map \(p(\cdot, \Gamma) \) is \(\cl{B} \)-measurable.
+    \end{enumerate}
+    \item A family of sub-Markov kernels \({(p_{s,t})}_{(s,t) \in I} \) is called \textit{transistion function}\index{transistion function} if
+    \begin{enumerate}[label = (\alph*)]
+      \item for each \(x \in E \) and \(t \in \R_+ \) we have  \(p_{t,t}(x, \cdot) = \delta_x \);
+      \item for each \(s, t, u \in \R_+ \) the Chapman-Kolmogorov equation
+      \begin{equation}\label{chapman_kolmogorov}
+        p_{s,t}p_{t,u} = p_{s,u}
+      \end{equation}
+      is holds, where the composition of two (sub-) Markov kernels \(p\) and \(q\) on \((E,\cl{B})\) is defined by the product kernel
+      \begin{equation*}
+        (pq)(x, \Gamma) := \int_E p(x, dy) q(y, \Gamma), \quad x \in E, \, \Gamma \in \cl{B}.
+      \end{equation*}
+    \end{enumerate}
+  \end{enumerate}
+
+  A transistion function \({(p_{s,t})}_{(s,t) \in I} \) is \textit{normal}\index{transistion function!normal}, if for each \((s,t) \in I \), \(x \in E\) and \(E \in \cl{B} \) we have \(\lim_{t \to s^+} p_{t,s}(x, E) = 1\).
+
+  We will call it \textit{conservative}\index{transistion function!conservative}, if for each \((s,t) \in I \), \(p_{s,t}\) is a Markov kernel.
+
+  We call a transition function \({(p_{s,t})}_{(s,t) \in I} \) \textit{time-homogeneous}\index{transistion function!time-homogeneous}, if there exists a family of sub-Markov kernels \({(p_s)}_{s \in \R_+}\) such that for all \((s,t) \in I \),
+  \begin{equation*}
+    p_{s,t} = p_{t-s}.
+  \end{equation*}
+  In this case we will call \({(p_s)}_{s \in \R_+}\) \textit{(time-homogeneous) transistion function}\index{transistion function!time-homogeneous}.
+\end{definition}
+
+Note that in the discrete case every transition function is normal.
+
+For the purpose of a cleaner notation, we usually omit some indices and write \(p_{s,t}\) resp. \(p_s\) to denote transistion functions.
+
+\subsection{Markov Processes}
+
+\todo[inline]{Redefine Markov processes to be autark of transition functions.}
+
+\begin{definition}[Markov process with initial distribution]
+  Let \((\Omega, \cl{A}, \Pr^\nu)\) be a probability space with filtration \(\cl{F} = {(\cl{F}_t)}_{t \in \R_+}\) on \(\cl{A} \) and let \(\nu{}\) be a probability measure on \(\cl{B}\). An \(\cl{F}\)-adapted, \(E\)-valued stochastic process \(X = {(X_t)}_{t \in \R_+}\) on \(\Omega{}\) is called \textit{(time-homogeneous) Markov process with initial distribution \(\nu{}\)}\index{Markov process!with inital distribution}, if
+  \begin{enumerate}[label = (\roman*)]
+    \item \(P^\nu X_0^{-1} = \nu{}\) and
+    \item\label{item:Markov_condition} for all \(s,t \in \R_+\) and \(\Gamma \in \cl{B}\) we have
+    \begin{equation}\label{Markov_condition}
+      \Pr^\nu(\{X_{s + t} \in \Gamma \} \mid \cl{F}_s) = \Pr^\nu(\{X_{s + t} \in \Gamma \} \mid X_s), \quad \Pr \text{-a.s.}
+    \end{equation}
+  \end{enumerate}
+\end{definition}
+
+Writing \(\Pr{}\) instead of \(\Pr{}^\nu{}\), we sometimes call a process \(X\) (just) \emph{Markov process}\index{Markov Process} if it is a Markov process with respect to the process's initial distribution \(\Pr X_0^{-1}\).
+
+Often it becomes conceptually helpful to have a family of probability measures on \(\cl{A}\) determining different initial distributions for the Markov process.
+
+\begin{definition}[Markov family]\label{def:Markov_family}
+  Let \((\Omega, \cl{A})\) be a measurable space with filtration \(\cl{F} = {(\cl{F}_t)}_{t \in \R_+}\) on \(\cl{A} \).
+  An \(\cl{F}\)-adapted, \(E\)-valued stochastic process \(X = {(X_t)}_{t \in \R_+}\) on \(\Omega \) together with a family \({\{\Pr^x\}}_{x \in E} \) of probability measures is called \textit{Markov family}\index{Markov family}, if
+  \begin{enumerate}[label = (\roman*)]
+    \item for all \(\Gamma \in \cl{A}\) the mapping \(E \ni x \mapsto \Pr^x (\Gamma)\) is universally measurable, i.e., it is \(\bar{\cl{B}}\)-\(\cl{B}([0,1])\)-measurable, where \(\bar{\cl{B}}\) is the completion of \(\cl{B}\) with respect to the system of every finite measure,
+    \item for all \(x \in E\) we have \(\Pr^x X_0^{-1} = \delta_x\),
+    \item for all \(s,t \in \R_+ \), \(x \in E \) and \(\Gamma \in \cl{B} \) we have 
+    \begin{equation}\label{Markov_family_condition}
+      \Pr^x(\{X_{s + t} \in \Gamma \} \mid \cl{F}_s) = \Pr^x(\{X_{t + s} \in \Gamma\} \mid X_s) , \quad \Pr^x \text{-a.s.},
+    \end{equation}
+    \item\label{item:Markov_restart} for all \(s,t \in \R_+ \), \(x \in E \) and \(\Gamma \in \cl{B} \) we have 
+    \begin{equation}\label{Markov_family_condition}
+      \Pr^x(\{X_{s + t} \in \Gamma \} \mid X_s = y) = \Pr^y(\{X_t \in \Gamma\}) , \quad  \text{for } \Pr^x X_s^{-1} \text{-a.e. } y \in E.
+    \end{equation}
+  \end{enumerate}
+\end{definition}
+
+
+\paragraph{Markov processes and their corresponding transtion functions}
+
+By a \emph{Polish space}\index{Polish space} we refer to a complete seperable metrizable space. Assuming that the space \(E\) is Polish, we obtain the following correspondence.
+
+\begin{theorem}\label{thm:markov_processes_and_their_transition_function}
+Let \(E\) be a Polish space.
+\begin{enumerate}[label = (\roman*)]
+  \item\label{item:markov_processes_and_their_transition_function_1} Let \(X = {(X_t)}_{t \in \R_+}\) be a Markov process with state space \(E\) on the probability space \((\Omega, \cl{A}, \Pr )\). Then
+  \begin{equation}\label{eq:transiton_function_from_Markov_process}
+    p_{s,t}(x, \Gamma) = \Pr\left[ X_t \in \Gamma \mid X_s = x  \right], \quad s,t \in \R_+, \, s \le t, \, x \in E, \, \Gamma \in \cl{B},
+  \end{equation}
+  defines a transtion function on \(E \times \cl{B}\), which is conservative. Moreover, it is time-homogeneous if the Markov process is time-homogeneous.
+  \item\label{item:markov_processes_and_their_transition_function_2} Let \({(p_t)}_{t \in \R_+}\) be a conservative transtion function on \(E \times \cl{B}\). Then there exists a measurable space \((\Omega, \cl{A})\) and process \(X = {(X_t)}_{t \in \R_+}\) with state space \(E\) on \(\Omega{}\) such that for each probability measure \(\nu{}\) on \(\cl{B}\) there exists a probability measure \(\Pr^\nu{}\) on \(\cl{A}\) such that \(X\) is a Markov process on \((\Omega, \cl{A}, \Pr^\nu)\) with initial distribution \(\nu{}\) that satisfies for all \(s,t \in \R_+ \), \(x \in E \) and \(\Gamma \in \cl{B} \) the equation
+  \begin{equation}\label{Markov_family_condition}
+    \Pr^x(\{X_{s + t} \in \Gamma \} \mid \cl{F}^{X}_s) = p_t(X_s, \Gamma), \quad \Pr^x \text{-a.s.},
+  \end{equation}
+  where \(\cl{F}^{X}\) denotes the induces filtration of \(X\).
+\end{enumerate}
+\end{theorem}
+
+\todo[inline]{Mabye quickly illustrate the canonical construction and reference Kallenberg Thm 8.4 as a rigorous proof.}
+
+INCORPERATE THIS INTO CANONICAL CONSTRUCTION:Rather than having for each initial distribution \(\nu{}\) a separate Markov process \(X_\nu{}\) a consequence of Theorem~\ref{thm:markov_processes_and_their_transition_function}~\ref{item:markov_processes_and_their_transition_function_2} is that we may take \(X\) to be the identity mapping between the path space \((E^{\R_+}, \cl{B}^{\R_+})\) and equip preimage space with different probability measures \(\Pr^\nu{}\). Then \(X_t\) coincides with the projection map \(\pi_t: E^{\R_+} \to E^{\R_+}\), \(\omega \mapsto \omega(t)\), which is measurable by definition of \(\cl{B}^{\R_+}\).
+
+\
+
+It happens sometimes that for a given \(\cl{F}\)-adapted, \(E\)-valued process \(X = {(X_t)}_{t \in \R_+}\) on a measurable space \((\Omega, \cl{A})\) that we can construct a family of \emph{shift operators}\index{shift operators} \({(\theta_t)}_{t \in \R_+}\) such that \(\theta_t: \Omega \to \Omega{}\) are \(\cl{A}\)-\(\cl{A}\)-measurable maps satisfying
+\begin{equation}\label{eq:shift_operator}
+ X_{s + t}(\omega) = X_t(\theta_s \omega), \quad \omega \in \Omega, \, s,t \ge 0.
+\end{equation}
+This requires the set of trajectories of the process to be invariant under all shift. In general this is not satisfied by all Markov processes. But, as illustrated in Dynkin~\cite*[p. 79]{dynkin_markov_1965}, one can enlarge the probability space \(\Omega{}\) such that this condition is met.
+
+One obvious example of Markov processes satisfying this invariance conditon is that of a canonically realized Markov process. For these the shift operators  \(\theta_t : E^{\R_+} \to E^{\R_+}\) are given by 
+\begin{equation}\label{eq:canonical_shift_operator}
+  (\theta_t \omega) (s) := \omega(t + s), \quad \omega \in E^{\R_+}, \, t,s \in \R_+.
+\end{equation}
+Recall that in the canonical case we can choose the process \(X\) as the identity mapping on the measurable space \((E^{\R_+}, \cl{B}^{\R_+})\) and endow, for a given initial distribution \(\nu{}\), the preimage space with a probability measure \(\Pr^\nu{}\) such that \(\Pr^\nu X_0^{-1} = \nu{}\). Then is clear that \(\theta_t X = \theta_t = X \circ \theta_t\).
+
+We will now show how we can construct canonically a Markov family.
+
+\begin{lemma}
+  Let \(X\) be a canonically realized Markov process with values in a Polish measurable space \((E, \cl{B})\). Let \({\{\Pr^x\}}_{x \in E}\) be a family of probability measures on \(\cl{B}^{\R_+}\) such that \(\Pr^x X_0^{-1} = \delta_x\) for each \(x \in E\). Let \(A \in \cl{B}^{\R_+}\). Then the mapping \(E \ni x \mapsto \Pr^x(A)\) is \(\cl{B}\)-\(\cl{B}([0,1])\)-measurable.
+\end{lemma}
+
+\begin{proof}
+  For \(0 < t_1 \le \dots \le t_n\), \(B_0, \dots, B_n \in \cl{B}\) and \(n \in \N{}\) the measurablility in \(x\) in case that \(A\) is a cylinder set follows from
+  \begin{equation}\label{eq:P_x_on_cylinder_sets}
+    \Pr^x(\{X_0 \in B_0, X_{t_1} \in B_1 \dots, X_{t_n} \in B_n \}) = \int_{B_0} f(x_0) \delta_x(dx_0) = 1_{B_0}(x) f(x),
+  \end{equation}
+  where
+  \begin{equation*}
+    f: E \to \R, \, x_0 \mapsto \int_{B_1} \dots \int_{B_n} 1 \, p_{t_n - t_{n - 1}}(x_{n-1}, dx_n) \dots p_{t_2 - t_1}(x_1, dx_2) p_{t_1}(x_0, dx_1)
+  \end{equation*}
+  is well-defined and by Lemma 1.8.7 in Gänssler and Stute~\cite{ganssler_wahrscheinlichkeitstheorie_1977} it is \(\cl{B}\)-\(\cl{B}([0,1])\)-measurable. Note that the representation in~\eqref{eq:P_x_on_cylinder_sets} follows from Theorem~\ref{thm:markov_processes_and_their_transition_function}~\ref{item:markov_processes_and_their_transition_function_1} and the definition of regular conditional probability distributions.
+
+  It is straightforward to verify that the set \( \{A \in \cl{B}^{\R_+} \mid E \ni x \mapsto \Pr^x(A) \text{ is measurable}\}{}\) is a Dynkin system, which contains the cylinder sets. Also the set of all cylinder sets is stable under taking finite intersections; hence, the claim follows from Gänssler and Stute~\cite*[Theorem 1.1.22]{ganssler_wahrscheinlichkeitstheorie_1977}.
+\end{proof}
+
+
+\todo[inline]{Show how this result proofs that we can construct a Markov family.}
+
+For Markov processes he following result, which is a special case of Propositon 8.9 in Kallenberg~\cite{kallenberg_foundations_2002}.
+
+\begin{proposition}[Extended Markov property]\label{prop:extended_Markov_property}
+  Now let \(X\) be an Markov process with respect to the filtration \(\cl{F}\) on some probability space \((\Omega, \cl{A}, \Pr{})\), for which the shift operators as in equation~\eqref{eq:shift_operator} are defined. Let \({\{\Pr^x\}}_{x \in E}\) be a family of probability measures on \(\cl{B}^{\R_+}\) such that \(\Pr^x X_0^{-1} = \delta_x\) for each \(x \in E\) and the mapping \(E \ni x \mapsto \Pr^x(A)\) is universally measurable. Then for \(A \in E^{\R_+}\) we have
+  \begin{equation}
+    \Pr(\{X \circ \theta_t \in A\} \mid \cl{F}_t) = \Pr^{X_s} (A), \quad \Pr \text{-a.s.} 
+  \end{equation}
+  If \(X\) is canonically realized with initial distribution \(\nu{}\), this is eqivalent to
+  \begin{equation}
+    \bb{E}^{\nu{}} \left[ \xi \circ \theta_t \mid \cl{F}_t \right] = \bb{E}^{X_t} \left[ \xi \right], \quad \Pr^{\nu{}} \text{-a.s.},
+  \end{equation}
+for any bounded or nonnegative random variable \(\xi: \Omega \to E^{\R_+}\).
+\end{proposition}
+
+
+\begin{nrremark}[Canonical Markov Family]\label{rem:canonical_Markov_familiy}
+  TODO.
+\end{nrremark}
+
+%--------------------
+
+\section{The Transition Semigroup and the Feller Properties}
+
+Let \(p\) be a sub-Markov kernel on a measurable space \((E,\cl{B})\). For each such family we can define the the transition operator
+\begin{equation}\label{transition_operator}
+  T: B_b (E,\cl{B} ) \to B_b (E,\cl{B}), \quad Tf(x) = (Tf)(x) = \int_E f(y) p(x, dy), \quad x \in E
+\end{equation}
+and the Perron-Frobenius operator
+\begin{equation}\label{perron_frobenius_operator}
+  U: \ca(E,\cl{B}) \to \ca(E,\cl{B}), \quad U \mu (\Gamma) = (U \mu) (\Gamma) = \int_E p(x, \Gamma) \mu(dx), \quad \Gamma \in \cl{B}.
+\end{equation}
+Note that both operators are linear. Approximating \(f \) by simple functions we see by monotonous convergence that \(Tf\) is again measurable. It is easily seen that \(T\) is a \emph{contraction}\index{operator!contraction} in the sense that it satifies \({\lVert Tf \rVert}_{B_b} \le {\lVert f \rVert}_{B_b}\) and is thus well defined.
+Using the Jordan decomposition \(\mu = \mu^+ - \mu^-\) we easily see from monotonous convergence (or dominated convergence) that \(T \mu \) is again a countably additive function on \(\cl{B} \). Also \(U\) is a contraction, which follows, using again the Jordan decomposition of \(\mu \), from
+\begin{equation*}
+  \begin{aligned}
+    {\lVert U \mu \rVert}_{\ca} &= \sup_{\Gamma \in \cl{B}} \, U \mu (\Gamma) - \inf_{\Gamma \in \cl{B}} U \mu (\Gamma) \\ &\le \sup_{\Gamma \in \cl{B}} \int_E p(x,\Gamma) \mu^+ (dx) + \sup_{\Gamma \in \cl{B}} \int_E p(x,\Gamma) \mu^-(dx) \\ &\le \mu^+ (E) + \mu^- (E) = {\lVert \mu \rVert}_{\ca}.
+  \end{aligned}
+\end{equation*}
+
+Note also that \(T\) and \(U\) are \emph{positive operators}\index{operator!positive}, i.e., \(f \in B_b(E,\cl{B})\), \(f \ge 0\) and \(\mu \in \ca(E,\cl{B})\), \(\mu \ge 0\) implies \(Tf \ge 0\) and \(U \mu \ge 0\), respectively; where the inequality is to be understood pointwise.
+
+We say that a family of operators \({(S_t)}_{t \in \R_+}\) satisfies the \emph{semigroup property}\index{semigroup!semigroup property} if \(S_{t+s} = S_s S_t \) for all \(s, t \in \R_+ \). It is called a \textit{semigroup (of operators)}\index{semigroup}\index{operator!semigroup} if addidtionally \(S_0\) is the identity operator.
+
+\begin{lemma}\label{lem:first_correspondence}
+  A family of sub-Markov kernels \({(p_t)}_{t \in \R_+}\) on \((E,B)\) is a transiton function iff the corresponding family of transisiton operators \(({(T_t)}_{t \in \R_+})\) is a semigroup of contractions iff the corresponding family of Perron-Frobenius operators \(({(U_t)}_{t \in \R_+})\) is a semigroup of contractions.
+\end{lemma}
+
+\begin{proof}
+  For \(x \in E\), \(\Gamma \in \cl{B} \) and \(s,t \in \R_+ \) we have \(T_{s+t} 1_\Gamma (x) =  p_{s+t}(x, \Gamma)\) and
+  \begin{equation*}
+    \begin{aligned}
+      (T_s T_t) 1_B(x) &= T_s(T_t 1_B(x)) = \int_E  (T_t 1_B)(y) p_s(x,dy) \\
+      &= \int_E p_t(y,B) p_s (x,dy) = (p_s p_t) (x,B).
+    \end{aligned}
+  \end{equation*}
+  This implies that the Chapman-Kolmogorov relation~\eqref{chapman_kolmogorov} is equivalent to \(T_{s+t} 1_B = (T_s T_t) 1_B\) for every \(B \in \cl{S} \). The latter relation extends to every bounded \(\cl{B}\)-measurable funtion by linearity and monotone convergence.
+  
+  Now assume that \({(p_t)}_{t \in \R_+}\) is a transition function on \((E,B)\). Then for all \(\mu \in \ca(\cl{B})\), \(\Gamma \in \cl{B}\) and \(s,t \in \R_+ \) we obtain from 
+  \begin{equation*}
+    \begin{aligned}
+      U_{s+t} \mu(\Gamma) &= \int_E p_{s+t}(x,\Gamma) \mu(dx) = \int_E \int_E p_s(y,\Gamma) p_t(x, dy) \mu(dx) \\
+      &= U_s(U_t \mu)(\Gamma) = (U_s U_t) \mu (\Gamma).
+    \end{aligned}
+  \end{equation*}
+  Hence\({(U_t)}_{t \in \R_+}\) satisfies the semigroup property.
+  Conversely, the semigroup propery implies for all \(x \in E\), \(\Gamma \in \cl{B}\) and \(t \in \R_+ \)
+  \begin{equation*}
+    \begin{aligned}
+      p_{s+t} (x, \Gamma) &= \int_E p_{s+t}(y,\Gamma) \delta_x(dy) = U_{s+t} \delta_x(\Gamma) \\
+      &= U_t (U_s \delta_x) (\Gamma) = (U_t p_s(x,\cdot))(\Gamma) = \int_E p_t (y, \Gamma) p_s(x, dy) = (p_s p_t)(x,\Gamma),
+    \end{aligned}
+  \end{equation*}
+  which is the Chapman-Kolmogorov equation~\eqref{chapman_kolmogorov}.
+  
+  Now note that \(T\) resp. \(U\) in equations~\eqref{transition_operator} and~\eqref{perron_frobenius_operator} are the identity operators iff \(p(x, \cdot) = \delta_x \) for all \(x \in E\). This proves the statement.
+\end{proof}
+
+This result motivates the following definition.
+
+\begin{definition}[Transition and Perron-Fobenius semigroups]
+  Let \({(p_t)}_{t \in \R_+}\) be a time-homogeneous transition function.
+  \begin{enumerate}[label = (\roman*)]
+    \item The family \({(T_t)}_{t \in \R_+} \) of operators \(T_t: B_b (E,\cl{B}) \to B_b (E,\cl{B}) \), \(t \in \R_+ \), defined by
+    \begin{equation}\label{eq:transiton_correspondence_forward}
+      T_t f(x) := \int_E f(y) p_t (x, dy), \quad f \in B_{b} (E,\cl{B}), \, x \in E,
+    \end{equation}
+    is called Transition semigroup for the transition function \(p_t\).
+    \item The family \({(U_t)}_{t \in \R_+} \) of operators \(U_t: \ca (E,\cl{B}) \to \ca (E,\cl{B})\), \(t \in \R_+ \), defined by
+    \begin{equation}\label{eq:perron_frobenius_correspondence_forward}
+      U_t \mu(\Gamma) := \int_E p_t (x, \Gamma) \mu(dx) , \quad \mu \in \ca (E,\cl{B}), \, \Gamma \in \cl{B},
+    \end{equation}
+    is called Perron-Frobenius semigroup for the transition function \(p_t\).
+  \end{enumerate}
+\end{definition}
+
+Note that from the previous discussion it follows that \({(T_t)}_{t \in \R_+}\) as well as \({(U_t)}_{t \in \R_+}\) are semigroups of positive contraction operators.
+
+\todo[inline]{view Perron-Frobenius operator as part adjoint.}
+
+\paragraph{A transiton function corresponding to a transition semigroup}
+Let \({(T_t)}_{t \in \R_+}\) be a semigroup of positive linear contractions on \(B_b(E,\cl{B})\). Define a family of mappings \(p_t: E \times \cl{B} \to [0,1]\), \(t \in \R_+\) by
+\begin{equation}\label{eq:transiton_correspondence_backwards}
+  p_t(x, \Gamma) := (T_t 1_{\Gamma})(x), \quad x \in E, \, \Gamma \in \cl{B}.
+\end{equation}
+
+We obtain the following result.
+\begin{proposition}\label{prop:one_to_one_correspondence}
+  The semigroups of positive linear contractions on \(B_b(E,\cl{B})\) are in one-to-one correspondence with the transition functions on \(E \times \cl{B}\) via the equations~\eqref{eq:transiton_correspondence_forward} and~\eqref{eq:transiton_correspondence_backwards}.
+\end{proposition}
+
+\begin{proof}
+  Let \({(T_t)}_{t \in \R_+}\) be a semigroup of positive linear contractions on \(B_b(E,\cl{B})\).
+  
+  Note that equation~\eqref{eq:transiton_correspondence_backwards} really defines a sub-Markov kernel for each \(t \in \R_+\). Indeed, for a fixed \(x \in E \) the linearity and boundedness of \(T_t\) imply the \(\sigma{}\)-additivity. As \(T_t\) is a contractions, \(p_t(x, \cdot)\) has values in \([0,1]\); hence, it is a sub-probability measure. For a fixed \(\Gamma \in \cl{B}\) \(p_t(\cdot, \Gamma)\) is by definition measurable.
+
+  For fixed \(t \in \R_+\) the transition operator \(T\) of \(p_t\) coincides with \(T_t\). This follows from a monotone class type argument together with the fact that for every \(\Gamma \in \cl{B}\) and \(x \in E\), we have 
+  \begin{equation}
+    T1_\Gamma (x) = p_t(x, \Gamma) = T_t 1_\Gamma (x).
+  \end{equation}
+
+  Now, it follows from Lemma~\ref{lem:first_correspondence} that \({(p_t)}_{t \in \R_+}\) is a transition function.
+
+  The converse has already been shown by the discussion leading up to Lemma~\ref{lem:first_correspondence} and the Lemma itself.
+\end{proof}
+
+This motivates the following definiton.
+\begin{definition}
+  A \emph{transition semigroup}\index{transition semigroup} is a semigroup of positive linear contractions on \(B_b(E, \cl{B})\).
+\end{definition}
+
+One important reason why we treat transistion semigroups is that they naturally correspond to Markov processes. We will treat this correspondence in more detail.
+
+An important notion for this is that of conservativity. Recall that a transistion function \({(p_t)}_{t \in \R_+}\) is called conservative if it is a family of Markov kernels.
+
+\begin{definition}
+  The transition semigroup \({(T_t)}_{t \in \R_+}\) is called \emph{conservative}\index{transition semigroup!conservative} if its corresponding transition function is conservative.
+\end{definition}
+
+\begin{lemma}\label{lem:conservative}
+  A transiton semigroup \({(T_t)}_{t \in \R_+}\) is conservative if and only if for all \(t \in \R_+\) we have \(T_t 1 = 1\).
+\end{lemma}
+
+\begin{proof}
+  Let \({(p_t)}_{t \in \R_+}\) be the corresponding transition function. Then the statement follows from \((T_t 1)(x) = p_t(x,E)\) for all \(x \in E\).
+\end{proof}
+
+\todo[inline]{Explain how transition semigroups correspond to Markov processes.}
+
+\subsection{Feller Semigroup and Feller Process}
+
+In the following we assume \(E\) to be a locally compact, separable, metric space with Borel-\(\sigma{}\)-algebra \(\cl{B}\). Recall that by \(C_0(E)\) we denote the class of continous functions \(f:E \to \R{}\) that vanish at infinity.
+
+\todo[inline]{Add comment that locally compact metric spaces are complete, hence polish.}
+
+\begin{definition}
+  Let \(E\) be a locally compact, separable, metric space. A semigroup of positive contraction operators \({(S_t)}_{t \in \R_+}\) on  \(C_0(E)\) is called \emph{Feller semigroup}\index{semigroup!Feller}\index{Feller semigroup} if
+  \begin{enumerate}[label = (F\textsubscript{\arabic*})]
+    \item\label{cond:F_1} \(\forall t \ge 0: S_t C_0(E) \subset C_0(E)\),
+    \item\label{cond:F_2} \(\forall f \in C_0(E), x \in E: \lim_{t \to 0^+} S_t f(x) = f(x)\).
+  \end{enumerate}
+\end{definition}
+
+We will show that a Feller semigroup \({(S_t)}_{t \in \R_+}\) is \emph{strongly continuous}\index{semigroup!strongly continuous}, i.e., we have
+\begin{enumerate}
+  \item[(F\textsubscript{3})] \(\forall f \in C_0(E): \lim_{t \to 0^+} S_t f = f\).
+\end{enumerate}
+
+\begin{theorem}\label{thm:strong_continuity}
+  Every Feller semigroup \({(S_t)}_{t \in \R_+}\) is strongly continuous.
+\end{theorem}
+
+\begin{proof}
+  We first show weak continuity, i.e., for every \(\phi \in {C_0(E)}^*\) and \(f \in C_0(E)\) we have that \(\lim_{t \to t_0} \phi(S_t f) = \phi(S_{t_0} f)\).
+
+  Let \(\phi \in {C_0(E)}^*\). By Riesz representation theorem, cf. Theorem~\ref{thm:Riesz_representation}, we find a countably additive function \(\mu \in \rca(\cl{B})\) such that \(\phi(f) = \int_E f \, d \mu{}\) for all \(f \in C_0(E)\).
+  
+  Let additionally \(f \in C_0(E)\). As \({(S_t)}_{t \in \R_+}\) is a semigroup of contraction operators and we have endowed \(C_0(E)\) with the topology of uniform convergence it follows that the family \({(S_t f)}_{t \in \R_+}\) is equibounded, namely we have \(\rvert (S_t f)(x) \lvert \le \lVert f \rVert{}\) for all \(t \in \R_+\) and all \(f \in C_0(E)\). As pointwise \(S_t f\) converges to \(S_{t_0} f\) as \(t \to t_0\) and \(\mu{}\) can be decomposed into two finite measures via a Jordan decomposition, it follows from Lebesgue's theorem, see Elstrodt~\cite[Theorem IV.5.2]{elstrodt_mas-_2005}, that
+  \begin{equation*}
+    \lim_{t \to t_0} \phi(S_t f) = \lim_{t \to t_0} \int_E S_t f \, d\mu  = \int_E S_{t_0} f \, d\mu = \phi(S_{t_0} f).
+  \end{equation*}
+  Hence, \({(S_t)}_{t \in \R_+}\) is weakly continuous. The strong continuity now follows from Engel~and~Nagel~\cite[Theorem I.5.8]{engel_one-parameter_2006}.
+\end{proof}
+
+The brevity of this proof is only due to the tremendous work that has been put into showing the Riesz representation theorem and the equivalence of weak and strong continuity of semigroups. For a more elementary and lengthy proof we suggest taking a look into Kallenberg~\cite[Theorems 19.4 and Theorem 19.6]{kallenberg_foundations_2002}.
+
+\begin{definition}[Feller transition semigroup and Feller process]
+  Let \(E\) be a locally compact Polish space.
+  \begin{enumerate}[label = (\roman*)]
+    \item A transition semigroup is called Feller it satisfies conditions~\ref{cond:F_1} and~\ref{cond:F_2}.
+    \item A Markov Process \({(X)}_{t \in \R_+}\) with state space \(E\) is called Feller process if the corresponding transition semigroup is Feller.
+  \end{enumerate}
+\end{definition}
+
+\paragraph{Existence of a Markov process corresponding to Feller Semigroups}
+Our goal is to contruct a Markov process corresponding a given Feller semigroup. This is not obvious as for Markov process to correspond to a transition function \({(p_t)}_{t \in \R_+}\) the transistion function must be conservative, see TODO.
+
+\begin{definition}
+  We call a Feller semigroup \emph{conservative}\index{Feller semigroup!conservative} if for all \(t \in \R_+\) we have \(T_t 1 = 1\).
+\end{definition}
+Note that by Lemma~\ref{lem:conservative}, the restriction to \(C_0(E)\) of a conservative transition function that is Feller is also conservative in the setting of the above definition. In this sense, the definition is consistent with Definition~\ref{def:transion_functions}
+
+Let \({(T_t)}_{t \in \R_+}\) be a Feller semigroup. We introduce a new state \(\Delta \notin E\) and form the one-point compactification \(\hat{E} = E \cup \{ \Delta \} \). As \(E\) is a locally compact separable metric space the compact space \(\hat{E}\) is separable and has a metric, cf. Mandelkern~\cite[Theorem 2]{mandelkern_metrization_1989}. In particular, as every compact metric space is complete (TODO: Reference), the space \(\hat{E}\) is a compact Polish space.
+
+Any function \(f \in C_0(E)\) has a continuous extension onto \(\hat{E}\) defined by setting \(f(\Delta) = 0\). In this way we can embedd the space \(C_0(E)\) into \(C(\hat{E})\), the space of all continuous functions on \(\hat{E}\). We will now extend the original Feller semigroup on \(C_0(E)\) to a conservative semigroup on \(C(\hat{E})\). The following is Lemma 19.13 in Kallenberg~\cite{kallenberg_foundations_2002}.
+
+\begin{lemma}[Compactification]
+  Any Feller semigroup \({(T_t)}_{t \in \R_+}\) on \(C_0(E)\) can be extended to a conservative Feller semigroup on \(C(\hat{E})\). The extension is given by
+  \begin{equation*}
+    \hat{T}_t f = f(\Delta) + T_t \left[f - f(\Delta)\right], \quad t \ge \R_+, \, f \in C(\hat{E}).
+  \end{equation*}
+  Here \(f(\Delta)\) is to be understood as the constant function with this value.
+\end{lemma}
+
+\begin{proof}
+  Well-definition and the semigroup property are straightforward to check. Note that from the compactness of \(\hat{E}\) it follows that \(C(\hat{E}) = C_0(\hat{E})\). The Feller axioms~\ref{cond:F_1} and~\ref{cond:F_2} follow easily from the definition of \(\hat{T}_t\). For \(f \in C(\hat{E})\), \(f \ge 0\) the function \(g := f(\Delta) - f \in C_0(E)\) satisfies \(g \le f(\Delta)\). Hence, by positivity of \(T_t\),
+  \begin{equation}
+    T_t g \le T_t g^+ \le \lVert T_t g^+ \rVert \le \lVert g^+ \rVert \le f(\Delta)
+  \end{equation}
+  and thus \(\hat{T}_f = F(\Delta) - T_t g \ge 0\) for all \(t \in \R_+\). The contraction property and conservativity now follow from the fact that \(T_t 1 = 1\).
+\end{proof}
+
+Our next goal is to find a partial analog to Proposition~\ref{prop:one_to_one_correspondence} for Feller semigroups, namely we'd like to associate to each Feller semigroup a unique conservative transition function \({(\mu_t)}_{t \in \R_+}\) on \(\hat{E} \times \hat{\cal{B}}\), where \(\hat{\cal{B}}\) is the Borel-\(\sigma{}\)-algebra corresponding to \(\hat{E}\), given by the property
+\begin{equation}\label{eq:characteristic_property_Feller_transiton_function}
+  T_t f (x) = \int_E f(y) \mu_t(x,dy), \quad f \in C_0(E).
+\end{equation}
+
+We call a state \(x \in \hat{E}\) \emph{absorbing}\index{absorbing state} if \(\mu_t(x, \{x\}) = 1\) for every \(t \in \R_+\).
+
+\begin{proposition}[Existence]
+  For any Feller semigroup \({(T_t)}_{t \in \R_+}\) on \(C_0(E)\) there exists a unique conservative transtion function on \(\hat{E} \times \hat{\cal{B}}\) satisfying~\eqref{eq:characteristic_property_Feller_transiton_function} such that \(\Delta{}\) is absorbing for \({(\mu_t)}_{t \in \R_+}\).
+\end{proposition}
+
+\begin{proof}
+  For a fixed \(x \in \hat{E}\) and \(t \in \R_+\), the mapping \(C(\hat{E}) \ni f \mapsto \hat{T}_t f(x)\) is a positive linear functional on \(C(\hat{E})\) with norm 1, so by Riesz representation theorem for compact spaces, see Corollary~\ref{cor:Riesz_representation_compact}, there exists a positive countably additive function \(\mu_t(x, \cdot)\) with norm 1; thus, it must be a probability measure on \(\hat{E}\) satisfying
+  \begin{equation}\label{eq:Feller_process_as_transition_function}
+    \hat{T}_t f(x) = \int_{\hat{E}} f(y) \mu_t (x, dy), \quad f \in C(\hat{E}), \, x \in \hat{E}, \, t \in \R_+.
+  \end{equation}
+  The measurability of the mapping \(\hat{E} \ni x \mapsto \hat{T}f(x)\) for fixed \(f \in C(\hat{E})\) is clear, as this map is continuous. Approximating \(1_\Gamma{}\) for \(\Gamma \in \hat{\cal{B}}\) with functions \({(f_n)}_{n \in \N}\) in \(C(\hat{E})\) we obtain by Lebesgue's dominated convergence theorem that \({(\hat{T}f_n)}_{n \in \N}\) converges pointwise to \(\mu_t(\cdot, \Gamma)\). As pointwise limits of measurable functions are measurable we obtain the desired measurablility of \(\mu_t(\cdot, \Gamma)\) for any Borel set \(\Gamma \in \hat{\cal{B}}\). By density of \(C(\hat{E})\) in \(B_b(\hat{E})\) the Feller semigroup can be extended to a unique Feller transition semigroup on \(B_b{\hat{E}}\), which satisfies equation~\eqref{eq:Feller_process_as_transition_function} for all \(f \in B_b(\hat{E})\). Thus, the Chapman-Kolmogorov relation for the transition function \({(\mu_t)}_{t \in \R_+}\) holds by Lemma~\ref{lem:first_correspondence}. Moreover, Proposition~\ref{prop:one_to_one_correspondence} implies the uniqueness of \({(\mu_t)}_{t \in \R_+}\).
+
+  The equation~\eqref{eq:characteristic_property_Feller_transiton_function} is now a special case of equation~\eqref{eq:Feller_process_as_transition_function}. Moreover, equation~\eqref{eq:Feller_process_as_transition_function} implies that
+  \begin{equation*}
+    \int_E f(y) \mu_t(\Delta, dy) = \hat{T}_t f(\Delta) = 0, \quad f \in C_0(E),
+  \end{equation*}
+  which in turn implies that \(\mu_t(\Delta, \{\Delta{}\}) = 1\). Hence, \(\Delta{}\) is absorbing.
+\end{proof}
+
+The last result together with Theorem~\ref{thm:markov_processes_and_their_transition_function} now imply that we can associate to each Feller semigroup \({(S_t)}_{t \in \R_+}\) and each probability measure \(\nu{}\) a probability space \((\Omega, \cl{A}, \Pr^\nu)\) and a Markov process \(X = {(X)}_{t \in \R_+}\) with initital distribution \(\nu{}\), in such a way that \(\Omega{}\), \(\cl{A}\) and \(X\) can be choosen independent of \(\nu{}\).
+
+As \(R_+\) is uncoutable, the choice of \(\Omega = E^\R_+\) and \(\cl{A}\) be the \(\sigma{}\)-algebra generated by the cylinder sets of the form
+\begin{equation*}
+  \{\omega \in E^\R_+ \mid \omega(t_1) \in B_1, \dots, \omega(t_n) \in B_n \},
+\end{equation*}
+where \(n \in \N{}\), \(B_1, dots, B_n \in \cl{B}\), and \(t_1, dots, t_n \in \R_+\), the canonical construction has some defects, e.g.,
+\begin{enumerate}
+  \item the sets whose description depend on an uncountable number of distinct times are not in the \(\sigma{}\)-algebra \(\cl{B}^\R_+\),
+  \item the mapping \(\R_+ \times \Omega \ni (t,\omega) \mapsto X_t(\omega)\) is not in general jointly measurable.
+\end{enumerate}
+
+Following an idea in Arnold~\cite*[Appendix A.2]{arnold_random_1998}, we give a construction to obtain an equivalent realization without these deficiencies. For \(\Omega_0 \subset \hat{E}^{\R_+}\) with\(\Omega_0 \notin \cl{B}^{\R_+}\) and \(\Pr^*(\Omega_0) = 1\), where \(\Pr^*(\Omega_0)\) denotes the \emph{outer measure}\index{outer measure} of \(\Omega_0\)
+\begin{equation}
+  \Pr^*(\Omega_0) := \inf \{\Pr(A) \mid \Omega_0 \subset A, \, A \in \cl{B}^{\R_+}\},
+\end{equation}
+we can restrict the probability space \((\hat{E}^{\R_+}, \cl{B}^{\R_+}, \Pr)\) to the space \((\Omega_0, \Omega_0 \cap \cl{B}^\R_+, \Pr_0)\), where \(\Pr_0\) is the unique probability measure on \(\Omega_0 \cap \cl{B}^\R_+\) defined by
+\begin{equation*}
+  \Pr_0(\Omega \cap A) := P(A), \quad A \in \cl{B}^{\R_+}.
+\end{equation*}
+The uniqueness follows from the fact that \(\Omega_0\) has probability \(1\) with respect to the outer measure, see also Gänssler and Stute~\cite[Theorem 7.1.18]{ganssler_wahrscheinlichkeitstheorie_1977}.
+As the finite dimensional distribution of both, \(\Pr{}\) and \(\Pr_0\), coincide, the functions \(X_t(\omega) := \omega(t)\) define equivalent stochastic processes, but the the paths of the restricted system lie in \(\Omega_0\).
+
+In the case of Feller processes, the next result will motivate this restriction to a smaller path space. Indeed, we will be able to restrict our paths to the space of all \emph{cadlag}\index{cadlag} functions on \(\R_+\) mapping into \(\hat{E}\) given by
+\begin{equation}
+  \Omega_0 := D(\R_+; \hat{E}) := \{\omega \in \hat{E}^{\R_+} \mid \forall t \in \R_+: \lim_{s \to t^-} \omega(s) =: \omega(t-) \in \hat{E}, \, \lim_{s \to t^+} \omega(s) = \omega(t)\}.
+\end{equation}
+
+Clearly, the condition in \(\Omega_0\) is one on uncoutably many times \(t\) of the paths, so \(\Omega_0 \notin \cl{B}^\R_+\).
+
+In Billingsley~\cite[Section 16]{billingsley_convergence_1968} it is shown that \(\Omega_0\) can be made a Polish space. The respective topology is called the Skorohod topology. Moreover, the Borel-\(\sigma{}\)-algebra with respect to the Skorohod topology \(\cl{D}\) on \(\Omega_0\) coincides with the trace-\(\sigma{}\)-algebra in \(\Omega_0\) of \(\cl{B}^{\R_+}\), cf. Billingsley~\cite[Theorem 16.6. (iii)]{billingsley_convergence_1968} or Gänssler and Stute~\cite[Section 7.2.10]{ganssler_wahrscheinlichkeitstheorie_1977}
+
+TODO: \(\Pr^*(\Omega_0) = 1\).
+
+For a cadlag process \(X\) with state space \(\hat{E}\) we say that \(\Delta{}\) is \emph{absorbing}\index{absorbing state} for \(X^\pm{}\) if for all \(\omega \in \Omega{}\) either \(X_t(\omega) = \Delta{}\) or \(\lim_{s \to t^-} X_s(\omega) = \Delta{}\) implies \(X_u(\omega) = \Delta{}\) for all \(u \le t\). The following result is Theorem 19.15 in Kallenberg~\cite{kallenberg_foundations_2002}.
+
+\begin{theorem}[Regularization]
+  Let \(X = {(X_t)}_{t \in \R_+}\) be a Feller process with state space \(\hat{E}\) with inital distribution \(\nu{}\). Then \(X\) has a cadlag version \(\tilde{X}\) with state space \(\hat{E}\) such that \(\Delta{}\) is absorbing for \(\tilde{X}^\pm{}\). If \(X\)'s corresponding Feller semigroup \({(T_t)}_{t \in \R_+}\) on \(C_0(E)\) is conservative and \(\nu{}\) restricted to \(\cl{B}\) is a probability measure, we can choose \(\tilde{X}\) to have state space \(E\).
+\end{theorem}
+
+TODO.
+
+\begin{nrremark}[Canonical Feller Process]\label{rem:canonical_Feller_process}
+  TODO.
+\end{nrremark}
+
+\paragraph{The generator of a Feller semigroup.}
+Let \({(S_t)}_{t \in \R_+}\) be a Feller semigroup. Its generator \(A: \cl{D}(A) \to C_0(E)\), \(\cl{D}(A) \subset C_0(E)\) is defined by
+\begin{equation*}
+  A f(x) := (Af)(x) := \lim_{t \to 0^+} \frac{S_t f(x) - f(x)}{t}, \quad f \in \cl{D}(A), \, x \in E,
+\end{equation*}
+where \(\cl{D}(A) := \{ f \in C_0(E) \mid \lim_{t \to 0^+} \frac{S_t f - f}{t} \in C_0(E)\} \).
+
+\begin{nrremark}\label{rem:generator}
+  Recall that the generator of a strongly continuous satisfies the following properties.
+  \begin{enumerate}[label = (\roman*)]
+    \item The set \(\cl{D}(A)\) is a dense linear subspace of \(C_0(E)\) and \(A\) is a closed operator.
+    \item For \(t \in \R_+\) it holds that \(S_t \cl{D}(A) \subset \cl{D}(A)\).
+    \item\label{item:forward_backward_equations} For \(f \in C_0(E)\) and \(t \in \R_+\) the semigroup \({(S_t)}_{t \in \R_+}\) satisfies
+    \begin{equation}
+      S_t f - f = S_t A f = \int_0^t S_s A f \, ds.
+    \end{equation}
+    Mpreover, if \(f \in \cl{D}(A)\) the map \(\R_+ \ni t \mapsto S_t f\) is differentiable and satisfies
+    \begin{equation}
+      \frac{d}{dt} (S_t f) = S_t A f = A S_t f.
+    \end{equation}
+  \end{enumerate}
+\end{nrremark}
+
+\todo[inline]{Add references for previous remark}
+
+\paragraph{Dynkin's formula}
+Let \(X = {(X)}_{t \in \R_+}\) be a canonical Feller process with state space \(\hat{E}\) denote by \({(T_t)}_{t \in \R_+}\) corresponding transistion semigroup, let \(A\) be the semigroup's generator and \(f \in \cl{D}(A)\). An important role in the analysis of Feller processes is played by the process
+\begin{equation}
+  M_t^f = f(X_t) - f(X_0) - \int_0^t Af(X_s) \, ds.
+\end{equation}
+
+Recall that an \emph{optional time} for  \(X\) is a \(\cl{F}^X\)-adapted random variable \(\tau: \Omega_0 \to \R_+\) ...
+
+\begin{lemma}[Dynkin's formula]
+  Let \(X = {(X)}_{t \in \R_+}\) be a canonically realized Feller process with inital distribution \(nu{}\). The processes \(M^f = {(M_t^f)}_{t \in \R_+}\), \(f \in \cl{D}(A)\) are martingales. In particular, we have for any bounded optional time \(\tau{}\)
+  \begin{equation}\label{eq:Dynkin_formula}
+    \bb{E}^x \left[ f(X_\tau) \right] = f(x) + \bb{E}^x \left[ \int_0^t Af(X_s) \, ds \right], \quad x \in E, \, f \in \cl{D}(A),
+  \end{equation} 
+  where \(\bb{E}^x\) denotes the expectation taken with respect to the measure \(\Pr^x\) that satisfies \(\Pr^x X_0^{-1} = \delta_x\).
+\end{lemma}
+
+\begin{proof}
+  Let \({\{\Pr^x\}}_{x \in E}\) be the family of canonically constructed probability measures such that \(X\) becomes a Markov family with these measures. This can be constructed for \(X\), cf. Remark~\ref{rem:canonical_Markov_familiy}.
+  For \(t, h \ge 0\) we have
+  \begin{equation*}
+    M_{t + h}^f - M_t^f = f(X_{t + h}) - f(X_t) - \int_t^{t + h} A f(X_s) \, ds  = M_h^f \circ \theta_t,
+  \end{equation*}
+  where \(\theta_t\) is the shift operator introduced in~\eqref{eq:canonical_shift_operator} on \(D(\R_+; \hat{E})\).
+  For \(x \in \hat{E}\), \(f \in C(\hat{E})\) and \(h \ge 0\) we obtain using Theorem~\ref{thm:markov_processes_and_their_transition_function}~\ref{item:markov_processes_and_their_transition_function_1} and the property~\ref{item:Markov_restart} in Definition~\ref{def:Markov_family} that
+  \begin{equation}\label{eq:helper_dynkin_formula}
+    \begin{aligned}
+      T_h f(x) &= \int_E f(y) \, p_h (x, dy) = \int_E f(y) \, \Pr^x (\{X_h \in dy\} \mid X_0 = x) \\
+      &= \int_E f(y) \, \Pr^x(\{X_h \in dy\}) = \int_{\Omega_0} f(X_h) \, d \Pr^x.
+    \end{aligned}
+  \end{equation}
+  Thus, the \(\cl{F}^X_t\)-\(\cl{B}(\R)\)-measurability of \(M_t^f\), Proposition~\ref{prop:extended_Markov_property}, Fubini's theorem, equation~\eqref{eq:helper_dynkin_formula} and Remark~\ref{rem:generator}~\ref{item:forward_backward_equations} imply
+  \begin{equation*}
+    \begin{aligned}
+      &\bb{E}^\nu \left[ M_{t + h}^f \mid \cl{F}^X_t \right] - M_t^f = \bb{E}^\nu \left[ M_h^f \circ \theta_t \mid \cl{F}^X_t \right] = \bb{E}^{X_t} \left[M_h^f \right] = \int_{\Omega_0} M_h^f \, d \Pr^{X_t} \\
+      &= \int_{\Omega_0} f(X_h) \, d \Pr^{X_t} - \int_{\Omega_0} f(X_0) \, d \Pr^{X_t} - \int_0^t \int_{\Omega_0} Af(X_s) \, d \Pr^{X_t} \, ds \\
+      &= T_h f(X_t) - f(X_t) - \int_0^t T_s A f(X_t) \, ds = 0.
+    \end{aligned}
+  \end{equation*}
+  Hence, \(M^f\) is a martingale.
+  
+  Let \(T > 0\) be a bound of \(\tau{}\). From Doob's optional sampling theorem, cf. Kallenberg~\cite[Theorem 7.12]{kallenberg_foundations_2002}, we obtain 
+  \begin{equation*}
+    0 = M^f_0 = \bb{E}^x \left[M^f_\tau \mid \cl{F}^X_0 \right].
+  \end{equation*}
+  Whence follows by the law of total expectation that
+  \begin{equation}
+    0 = \bb{E}^x \left[ f (X_\tau)\right] - \underbrace{\bb{E}^x \left[f(X_0)\right]}_{= \, f(x)} - \bb{E}^x \left[\int_0^t A f(X_s) \, ds \right],
+  \end{equation}
+  which is equation~\eqref{eq:Dynkin_formula}.
+\end{proof}
+
+\paragraph{The Characteristic Operator - revisited}
+In the following we want to further describe some properties of the characteristic operator \(A\) of a Feller process. In particular we are interessted in the behaviour of of \(A f\) for \(f \in \cl{D}(A)\) at absorbing states. For this let \(\rho{}\) be a metric in \(E\). We introduce the optional times
+\begin{equation}
+  \tau_h = \inf \{t \ge 0 \mid \rho(X_t, X_0) > 0\}, \quad h > 0.
+\end{equation}
+Note that a state \(x \in S\) is absorbing iff for every \(h > 0\) we have \(\Pr^x\)-a.s. \(\tau_h = \infty{}\).
+
+\begin{lemma}
+  Let \(X\) be a Feller process with state space \(E\) or \(\hat{E}\). For any nonabsorbing state \(x \in E\), we have \(\bb{E}^x \left[\tau_h\right] < \infty{}\) for all sufficiently small \(h > 0\).
+\end{lemma}
+
+\begin{proof}
+  Assume that \(x\) is absorbing. Then we have \(\mu_t (x, B_\epsilon(x)) = 1\) for all \(t \ge 0\) and all \(\epsilon > 0\), where \(B_\epsilon (x) = \{y \in S \mid \rho(x,y) \le \epsilon{}\}{}\). Hence, for a nonabsorbing state \(x\) we find \(\epsilon > 0\) and a time \(t > 0\) as well as a constant \(p < 1\) such that \(\mu_t (x, B_\epsilon(x)) < p\).
+  
+  By Urysohn's lemma there exists a functions \(g \in C_0(E)\) with \(1_B_{}\)
+
+
+
+
+
+  Let \({(f_n)}_{n \in \N}\) and \({(g_n)}_{n \in \N}\) be sequences in \(C_0(E)\) with \(0 \le f_n \le 1_{B_\epsilon(x)} \le g_n \le 1\) such that pointwise \(f_n \uparrow 1_{B_\epsilon(x)}\) and \(g_n \downarrow 1_{B_\epsilon(x)}\). Then for each \(n \in \N{}\) and \(y \in E\) we have
+  \begin{equation}\label{eq:helper_escape_time}
+    T_t f_n (y) = \int_E f_n(z) \, \mu_t(y, dz) \le \mu_t(y, B_\epsilon(x)) \le \int_E g_n(z) \, \mu_t(y, dz) = T_t g_n (y).
+  \end{equation}
+  Set \(\hat{\epsilon} : = p - \mu_t(x, B_\epsilon(x))\). By continuity there exists a sequence \({(\delta_n)}_{n \in \N}\) such that for all \(y \in B_\epsilon(x)\)
+  \begin{equation*}
+    \begin{aligned}
+      &\left\lvert T_t f_n (y) - T_t f_n (x) \right\rvert \le \frac{\hat{\epsilon}}{3}, \\
+      &\left\lvert T_t g_n (y) - T_t g_n (x) \right\rvert \le \frac{\hat{\epsilon}}{3}.
+    \end{aligned}
+  \end{equation*}
+  Choosing \(n \in \N{}\) sufficiently large and setting \(h := \min \{\delta_n, \epsilon{}\}{}\), we obtain for \(y \in B_h(x)\) from equation~\eqref{eq:helper_escape_time}
+  \begin{equation}
+    \begin{aligned}
+      & \mu_t(y, B_\epsilon(x)) - \mu_t(x, B_\epsilon(x)) \\
+      = & \mu_t(y, B_\epsilon(x)) - T_t f_n (y) + T_t f_n (y) - T_t f_n(x) + T_t f_n (x) - \mu_t(x, B_\epsilon(x))
+    \end{aligned}
+  \end{equation}
+
+  
+  
+  Let \(y \in E\). By Lebesgue's theorem and a pointwise approximation of \(1_{B_\epsilon(X)} \in B_b(E)\), we find for each \(\hat{\epsilon}\) a function \(f \in C_0(E)\) such that \(\left\lvert T_t f(x) - \mu_t(x, B_\epsilon(x)) \right\rvert < \hat{epsilon}\) and \(\left\lvert T_t f(y) - \mu_t(y, B_\epsilon(x)) \right\rvert < \hat{epsilon}\). By continuity of \(T_f\) we will find a \(h \in (0, \epsilon]\) such that \(\left\lvert T_t f(x) - T_t f(y) \right\rvert < \hat{\epsilon}\). Choosing \(\hat{\epsilon}\) suffficiently small we obtain using the triangle inequality that
+  \begin{equation*}
+    \mu_t(y, B_\epsilon(x)) \le \mu_t(y, B_h(x)) \le p, \quad y \in B_h(x).
+  \end{equation*}
+  Also we have
+  \begin{equation*}
+    \Pr^x(\{\tau_h \ge nt\}) = \Pr^x(\{\})
+  \end{equation*}
+
+\end{proof}
+\paragraph{Feller Diffusions}
+TODO.
+
+
+
+\begin{theorem}[Feller diffusions and elliptic operators, Dynkin]
+  Let \({(A, \cl{D}(A))}\) be the generator of a the transition semigroup corresponding to the Feller process \(X = {(X)}_{t \in \R_+}\) on the state space \(E = \R^d\). Assume that \(C_c^\infty(\R^d) \subset \cl{D}(A)\). Then \(X\) is continuous on 
+\end{theorem}
+
+\end{document}
+

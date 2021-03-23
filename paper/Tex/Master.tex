@@ -1,0 +1,98 @@
+% Document and Layout settings
+\documentclass[11pt, paper = a4]{article}
+\pagestyle{headings}
+\usepackage[DIV=10]{typearea}
+
+
+\usepackage[utf8]{inputenc} % encoding
+\usepackage[ngerman,english]{babel}
+
+\input{Inputs/packages_and_package_settings.tex}
+\input{Inputs/macros_and_theorem_definitions.tex}
+
+\usepackage[style=alphabetic,isbn=false,url=false, doi=false]{biblatex}
+\addbibresource{../Bibliographies/bibliography.bib}
+
+\AtEveryBibitem{%
+  \clearname{translator}%
+  \clearname{editorb}%
+  \clearfield{pagetotal}%
+  \clearfield{editorbtype}%
+  \clearfield{month}%
+  \clearfield{day}%
+  \clearlist{notes}%
+  \clearlist{language}%
+}%
+
+\DefineBibliographyStrings{english}{%
+  edition = {edition},%
+}%
+
+\DefineBibliographyStrings{ngerman}{%
+  edition = {Edition},%
+}%
+
+% Chapters and Section to include in the document
+\newcommand*{\SubfileFolder}{./Sections}
+\newcommand*{\ListOfFiles}{%
+  \SubfileFolder/1_Section.tex,%
+  \SubfileFolder/2_Section.tex,%
+  \SubfileFolder/3_Section.tex,%
+  \SubfileFolder/4_Section.tex%
+}%
+
+% META
+\newcommand*{\metaLogoPath}{../Media/UniPassau.pdf}
+\newcommand*{\metaAuthor}{Julian Hölz}
+\newcommand*{\metaSupertitle}{Oberseminar dynamische Systeme im Sommersemester 2020}
+\newcommand*{\metaTitle}{Markov and Feller Processes}
+\newcommand*{\metaSubtitle}{A Semigroup Theoretic Approach}
+\newcommand*{\metaMatrikelnr}{77903}
+\newcommand*{\metaSupervisor}{Prof.~Dr.~Fabian~Wirth \\ Lehrstuhl für dynamische Systeme}
+\newcommand*{\metaDate}{29. Juli 2020}
+\newcommand*{\metaFakultaet}{Fakultät für Informatik und Mathematik der Universität Passau} % für korrekte Grammatik im Dativ formulieren
+
+\input{Inputs/theorem_definitions.tex}
+\input{Inputs/hypersetup.tex}
+
+% The Beginning of the Document
+\begin{document}%
+
+% TitlePage
+\pagenumbering{gobble}%
+
+\subfile{Supporting_Documents/titlepage.tex}
+
+\begin{abstract}%
+  We present the notions of Markov processes and investigate their relation to semigroups of operators, the so called transition semigroups. We then focus on the special case of Feller processes and their corresponding transition semigroups. We proof a result on the strong continuity of this semigroup and give a canonical construction of a Feller process. We proof Dynkin's formula and investigate the generator of a Feller semigroup. We conclude the paper by presenting a result for the special case of a diffusion processes, hereby linking the concept of Feller processes to partial differential equations.
+\end{abstract}%
+
+% The Table of Contents
+\newpage%
+\pagenumbering{roman}%
+
+\tableofcontents%
+
+% The First Page
+\newpage%
+\cleardoublepage%
+\pagenumbering{arabic}%
+
+% The Chapters
+\foreach\listitem%
+in \ListOfFiles{%
+  \subfile{\listitem}%
+}%
+
+% References
+\newpage%
+\printbibliography%
+
+% Index
+\newpage%
+\printindex%
+
+% Eidesstattliche Erklärung
+\input{Inputs/erklaerung_an_eidestatt.tex}
+
+\end{document}%

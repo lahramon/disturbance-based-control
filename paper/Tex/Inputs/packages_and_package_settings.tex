@@ -1,0 +1,52 @@
+% To start out let's include the following packages
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} % for clickable references
+\usepackage{xcolor} % custom colors
+\usepackage{graphicx} % for including graphics
+\usepackage{tikz} % for drawing and more
+\usepackage{booktabs} % for nice tables
+\usepackage{makeidx} % for an index file
+\usepackage{lipsum} % for lorem ipsum blindtexts
+\usepackage{pgffor} % for for-loops
+\usepackage{todonotes} % for todo-notes
+
+% Math stuff
+\usepackage{enumerate} % for advanced enumeraton options
+\usepackage{enumitem} % for advanced enumeraton options
+\usepackage{amsmath} % math stuff
+\usepackage{mathtools} % math stuff
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{mathabx}
+\usepackage{cleveref} % for nice references
+
+% Misc
+\usepackage{listofsymbols}
+\usepackage{subfiles}
+\usepackage{lmodern}
+\usepackage{tabularx}
+
+% Language and Bibliography stuff
+\usepackage{logreq}
+\usepackage{csquotes}
+
+\usepackage{newunicodechar}
+
+
+% Some layout variables to avoid too long lines
+%\tolerance 1414 \hbadness 1414 \emergencystretch 1.5em \hfuzz 0.3pt \widowpenalty=10000 \vfuzz \hfuzz \raggedbottom
+
+
+% new tabularx commands
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+
+% ß
+\newunicodechar{ß}{\ss}
+
+\setitemize{leftmargin=*, align=left}
+
+% makeindex
+\makeindex%
