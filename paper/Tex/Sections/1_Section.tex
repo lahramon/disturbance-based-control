@@ -4,5 +4,58 @@
 \begin{document}
 
 
+\section{Introduction}
+
+TODO.
+
+\section{The Model Problem - A Lagrangian Profiling Float}
+
+The profiling agent that is subject to be controlled is governed by an input offering partial control of the system and is environment. The control objective of this is yet to be determined. We assume the agent to interact with its surrounding according to Lagrangian dynamics. This means that the direction and velocities of the agent and of the environment at the agent's position coincide. Modeling errors might occur due to inertia and frictional forces. We assume the modeling errors to be sufficiently small.
+
+The agent's environment will be modeled by the \(3\)-dimensional, time-variant and continuous vector field
+\begin{equation*}
+  f: I \times D \to \R^3
+\end{equation*}
+for some interval \(I \subseteq \R_+\) and some open domain \(D \subseteq \R^3\). The vector 
+\begin{equation*}
+  f(t,(x,y,z)) = \begin{pmatrix}
+    f_x(t,(x,y,z)) \\
+    f_y(t,(x,y,z)) \\ 
+    f_z(t,(x,y,z))
+  \end{pmatrix} \in \R^3
+\end{equation*}
+describes the speed and direction of the environment at time \(t \in I\) and position \((x,y,z) \in \R^3\). We interpret \(x\) and \(y\) as the lateral and \(z\) as the horizontal axis of the coordinate system.
+
+As we have assumed Lagrangian dynamics the profiling agent will be governed by
+\begin{equation}\label{eq:first_Lagrangian_dynamics}
+  \dot{\phi}(t, u) = f(t, \phi(t, u)) + C u(t), \qquad t \in J,
+\end{equation}
+where \(\phi(\cdot, u): J \to D\) is sufficiently regular and embodies a solution of~\eqref{eq:first_Lagrangian_dynamics} on the interval \(J \subseteq I\), the function \(u: I \to \mathcal{U}\) is the control input, where \(\mathcal{U} \subseteq \R^3\) is some subset of admissable control values and \(C \in \R^{3 \times p}\) need not have full column rank. For the sake of this example let us take \(p = 1\),
+\begin{equation*}
+  C = 
+  \begin{pmatrix}
+    0 \\
+    0 \\
+    1
+  \end{pmatrix}
+\end{equation*}
+and \(\mathcal{U} = [-U, U]\) for some \(U > 0\).
+In this respect, only the speed in the horizontal direction is expected to be controlable. 
+
+\paragraph{The optimization problem.}
+
+Let \(J \subseteq I\) be an interval with nonempty interior and \((t_0, x_0) \in J \times D\). We call a measurable control input \(u: J \to \mathcal{U}\) \emph{admissable for \((J, t_0, x_0)\)} if there exists a unique absolutely continuous function \(\phi: J \to D\) satisfying
+\begin{equation*}
+  \begin{aligned}
+    \dot{\phi}(t) &= f(t, \phi(t)) + C u(t), \qquad \text{ for a.e. } t \in J, \\
+    \phi(t_0) &= x_0.
+  \end{aligned}
+\end{equation*}
+Denote by \(\mathbb{U}(J, t_0, x_0)\) the set of all control inputs that are admissable for \((J, t_0, x_0)\).
+
+Let \(T > 0\) and assume that \(\mathbb{U}([t_0, t_0 + T], t_0, x_0)\) is nonempty. 
+
+
+
 
 \end{document}
